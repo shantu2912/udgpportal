@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MSME / Startup Registration | UDGEP</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", sans-serif;
+        }
+
+        body {
+            background-color: #f4f6fa;
+        }
+
+        header {
+            background: #004aad;
+            color: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 22px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 15px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            padding: 40px 60px;
+        }
+
+        h2 {
+            color: #004aad;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        /* Registration Form */
+        form {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            max-width: 800px;
+            margin: auto;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 15px;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        input[type="file"] {
+            margin-top: 10px;
+        }
+
+        button {
+            background: #004aad;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            margin-top: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #0063ff;
+        }
+
+        .status-section {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            margin-top: 40px;
+            max-width: 800px;
+            margin: 40px auto;
+            text-align: center;
+        }
+
+        .status-section h3 {
+            color: #004aad;
+            margin-bottom: 15px;
+        }
+
+        input[type="search"] {
+            width: 70%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 15px;
+            background: white;
+            color: #555;
+            font-size: 14px;
+            border-top: 1px solid #ddd;
+            margin-top: 50px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            form, .status-section {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<header>
+    <h1>UDGEP | MSME / Startup Registration</h1>
+    <nav>
+        <a href="new.html">🏠 Dashboard</a>
+        <a href="msmemain.html">MSME</a>
+        <a href="schemes.html">Schemes</a>
+        <a href="forms.html">🏠 Forms</a>
+        <a href="skills.html">Skills</a>
+        <a href="ai.html">AI Checker</a>
+    </nav>
+</header>
+
+<div class="container">
+    <h2>Register Your MSME / Startup</h2>
+
+    <form id="msmeForm">
+        <label>Business / Startup Name</label>
+        <input type="text" id="businessName" placeholder="Enter your business name" required>
+
+        <label>Owner / Founder Name</label>
+        <input type="text" id="ownerName" placeholder="Enter your full name" required>
+
+        <label>Email Address</label>
+        <input type="email" id="email" placeholder="Enter email" required>
+
+        <label>Phone Number</label>
+        <input type="number" id="phone" placeholder="Enter mobile number" required>
+
+        <label>Business Type</label>
+        <select id="businessType" required>
+            <option value="">Select Type</option>
+            <option value="manufacturing">Manufacturing</option>
+            <option value="service">Service</option>
+            <option value="tech">Technology / IT</option>
+            <option value="agriculture">Agriculture</option>
+        </select>
+
+        <label>Business Description</label>
+        <textarea id="description" rows="4" placeholder="Describe your business idea or operations"></textarea>
+
+        <label>Upload Business Registration / GST / PAN Proof</label>
+        <input type="file" id="proofUpload" accept=".pdf,.jpg,.png">
+
+        <button type="submit">Submit Registration</button>
+    </form>
+
+    <!-- Certificate Status Checker -->
+    <div class="status-section">
+        <h3>Check MSME Certificate Status</h3>
+        <input type="search" id="statusSearch" placeholder="Enter Registration ID">
+        <button onclick="checkStatus()">Check Status</button>
+
+        <p id="statusResult" style="margin-top:15px; color:#333; font-weight:600;"></p>
+    </div>
+</div>
+
+<footer class="footer">
+    © 2025 UDGEP | Unified Digital Governance & Empowerment Portal
+</footer>
+
+<script>
+    const form = document.getElementById("msmeForm");
+    const statusResult = document.getElementById("statusResult");
+
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        alert("✅ Your MSME registration has been submitted successfully! You’ll receive a confirmation email shortly.");
+        form.reset();
+    });
+
+    function checkStatus() {
+        const id = document.getElementById("statusSearch").value.trim();
+        if (id === "MSME2025") {
+            statusResult.textContent = "✅ Approved – Certificate Issued";
+            statusResult.style.color = "green";
+        } else if (id) {
+            statusResult.textContent = "⏳ Under Review – Please check again later.";
+            statusResult.style.color = "#f39c12";
+        } else {
+            statusResult.textContent = "❌ Please enter a valid Registration ID.";
+            statusResult.style.color = "red";
+        }
+    }
+</script>
+</body>
+</html>
