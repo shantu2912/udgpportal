@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Based Eligibility Checker | UDGEP</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background-color: #f4f6fa;
+            color: #333;
+        }
+
+        header {
+            background: #004aad;
+            color: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 22px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 15px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            padding: 40px 60px;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        h2 {
+            color: #004aad;
+            font-size: 26px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        form {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+            margin-top: 5px;
+        }
+
+        button {
+            background: #004aad;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            margin-top: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #0063ff;
+        }
+
+        .result {
+            background: #eaf1ff;
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .scheme {
+            background: white;
+            border: 1px solid #cdd8f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .scheme h3 {
+            color: #004aad;
+            margin-bottom: 5px;
+        }
+
+        .scheme p {
+            font-size: 14px;
+            color: #555;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background: white;
+            color: #555;
+            font-size: 14px;
+            border-top: 1px solid #ddd;
+            margin-top: 50px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<header>
+    <h1>UDGEP | AI-Based Eligibility Checker</h1>
+    <nav>
+        <a href="new.html">🏠 Dashboard</a>
+        <a href="msmemain.html">MSME</a>
+        <a href="forms.html">MSME</a>
+        <a href="schemes.html">Schemes</a>
+        <a href="skills.html">Skills</a>
+    </nav>
+</header>
+
+<div class="container">
+    <h2>Find Government Schemes You’re Eligible For</h2>
+
+    <form id="eligibilityForm">
+        <label>Full Name</label>
+        <input type="text" id="name" placeholder="Enter your full name" required>
+
+        <label>Age</label>
+        <input type="number" id="age" placeholder="Enter your age" required>
+
+        <label>Gender</label>
+        <select id="gender" required>
+            <option value="">Select</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+        </select>
+
+        <label>Monthly Income (₹)</label>
+        <input type="number" id="income" placeholder="Enter your monthly income" required>
+
+        <label>Category</label>
+        <select id="category" required>
+            <option value="">Select</option>
+            <option value="general">General</option>
+            <option value="obc">OBC</option>
+            <option value="sc">SC</option>
+            <option value="st">ST</option>
+        </select>
+
+        <label>Employment Type</label>
+        <select id="employment" required>
+            <option value="">Select</option>
+            <option value="student">Student</option>
+            <option value="unemployed">Unemployed</option>
+            <option value="entrepreneur">Entrepreneur</option>
+            <option value="farmer">Farmer</option>
+            <option value="employee">Private / Govt Employee</option>
+        </select>
+
+        <button type="submit">Check Eligibility</button>
+    </form>
+
+    <div class="result" id="resultSection">
+        <h3>✅ Based on your details, you may be eligible for:</h3>
+        <div id="schemesList"></div>
+    </div>
+</div>
+
+<footer>
+    © 2025 UDGEP | Unified Digital Governance & Empowerment Portal
+</footer>
+
+<script>
+    const form = document.getElementById("eligibilityForm");
+    const resultSection = document.getElementById("resultSection");
+    const schemesList = document.getElementById("schemesList");
+
+    const schemes = [
+        { name: "PMEGP - Prime Minister’s Employment Generation Programme", target: ["entrepreneur", "unemployed"], incomeLimit: 30000, description: "Financial support to set up new MSME or manufacturing units." },
+        { name: "Mudra Loan Yojana", target: ["entrepreneur", "employee"], incomeLimit: 50000, description: "Collateral-free loans for small and medium entrepreneurs." },
+        { name: "PM Kisan Samman Nidhi", target: ["farmer"], incomeLimit: 25000, description: "₹6,000 annual assistance for small and marginal farmers." },
+        { name: "Skill India Development Program", target: ["student", "unemployed"], incomeLimit: 60000, description: "Free government-recognized skill training and certification." },
+        { name: "Stand-Up India Scheme", target: ["female", "entrepreneur"], incomeLimit: 40000, description: "Encourages women entrepreneurs with loans and training." }
+    ];
+
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const age = parseInt(document.getElementById("age").value);
+        const gender = document.getElementById("gender").value;
+        const income = parseInt(document.getElementById("income").value);
+        const employment = document.getElementById("employment").value;
+
+        const eligible = schemes.filter(s =>
+            s.target.includes(employment) &&
+            income <= s.incomeLimit ||
+            (s.name.includes("Stand-Up") && gender === "female")
+        );
+
+        resultSection.style.display = "block";
+        schemesList.innerHTML = "";
+
+        if (eligible.length > 0) {
+            eligible.forEach(s => {
+                const div = document.createElement("div");
+                div.classList.add("scheme");
+                div.innerHTML = `<h3>${s.name}</h3><p>${s.description}</p>`;
+                schemesList.appendChild(div);
+            });
+        } else {
+            schemesList.innerHTML = "<p>❌ No matching schemes found based on your current data.</p>";
+        }
+    });
+</script>
+</body>
+</html>
