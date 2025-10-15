@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UDGEP | Unified Digital Portal Dashboard</title>
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", sans-serif;
+        }
+
+        body {
+            display: flex;
+            min-height: 100vh;
+            background-color: #f4f6fa;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 260px;
+            background: #004aad;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            position: fixed;
+            height: 100%;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+        }
+
+        .sidebar h2 {
+            font-size: 22px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 12px 15px;
+            border-radius: 8px;
+            display: block;
+            margin-bottom: 8px;
+            transition: 0.3s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: #0066ff;
+        }
+
+        /* Main */
+        .main {
+            margin-left: 260px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            color: #004aad;
+            font-size: 22px;
+        }
+
+        .user {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .content {
+            flex: 1;
+            padding: 40px 60px;
+            background-color: #f4f6fa;
+        }
+
+        /* Dashboard Cards */
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+        }
+
+        .card h3 {
+            color: #004aad;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Charts Section */
+        .chart-section {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .chart-section h2 {
+            color: #004aad;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Quick Access */
+        .quick-access {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .quick-access h2 {
+            color: #004aad;
+            margin-bottom: 20px;
+        }
+
+        .quick-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .quick-link {
+            background: #004aad;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .quick-link:hover {
+            background: #0063ff;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 12px;
+            background: white;
+            color: #555;
+            font-size: 14px;
+            border-top: 1px solid #ddd;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+            .main {
+                margin-left: 0;
+            }
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<aside class="sidebar">
+    <h2>UDGEP Portal</h2>
+    <a href="#" class="nav-link active">Dashboard</a>
+    <a href="msmemain.html" class="nav-link">MSME / Startup</a>
+    <a href="forms.html" class="nav-link">Forms & Docs Hub</a>
+    <a href="schemes.html" class="nav-link">Schemes Hub</a>
+    <a href="skills.html" class="nav-link">Skill Education</a>
+    <a href="ai-checker.html" class="nav-link">AI Eligibility</a>
+    <a href="analytics.html" class="nav-link">Admin Analytics</a>
+    <a href="login.html" class="nav-link">Logout</a>
+</aside>
+
+<main class="main">
+    <div class="header">
+        <h1>Unified Digital Governance & Empowerment Portal</h1>
+        <div class="user">👤 Admin | UDGEP</div>
+    </div>
+
+    <div class="content">
+
+        <!-- Dashboard Analytics Cards -->
+        <div class="card-container">
+            <div class="card">
+                <h3>Total MSME Registered</h3>
+                <p>1,245</p>
+            </div>
+            <div class="card">
+                <h3>Active Schemes</h3>
+                <p>78</p>
+            </div>
+            <div class="card">
+                <h3>Pending Applications</h3>
+                <p>312</p>
+            </div>
+            <div class="card">
+                <h3>Skill Courses Offered</h3>
+                <p>56</p>
+            </div>
+        </div>
+
+        <!-- Chart Section -->
+        <div class="chart-section">
+            <h2>Registrations Overview</h2>
+            <canvas id="msmeChart"></canvas>
+        </div>
+
+        <!-- Quick Access -->
+        <div class="quick-access">
+            <h2>Quick Access</h2>
+            <div class="quick-links">
+                <a href="msmemain.html" class="quick-link">🧾 MSME Registration</a>
+                <a href="schemes.html" class="quick-link">📄 Scheme Application</a>
+                <a href="skills.html" class="quick-link">🎓 Skill Learning Hub</a>
+                <a href="analytics.html" class="quick-link">📊 View Reports</a>
+                <a href="ai.html" class="quick-link">🔍 Eligibility Checker</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        © 2025 UDGEP | Unified Digital Governance & Empowerment Portal
+    </div>
+</main>
+
+<!-- Chart.js Script -->
+<script>
+    const ctx = document.getElementById('msmeChart');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
+            datasets: [{
+                label: 'New MSME Registrations',
+                data: [120, 180, 90, 220, 150, 300, 250, 190],
+                backgroundColor: '#004aad',
+                borderRadius: 6
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
