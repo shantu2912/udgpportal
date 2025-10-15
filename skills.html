@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Skill-Based Education Hub | UDGEP</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fb;
+            color: #333;
+        }
+
+        header {
+            background: #004aad;
+            color: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 22px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 15px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            padding: 40px 60px;
+        }
+
+        h2 {
+            color: #004aad;
+            font-size: 26px;
+            margin-bottom: 20px;
+        }
+
+        /* Search and Filter */
+        .search-bar {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        input[type="text"], select {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+            min-width: 220px;
+        }
+
+        button {
+            background: #004aad;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #0063ff;
+        }
+
+        /* Course Cards */
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .course-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+        }
+
+        .course-card img {
+            width: 80px;
+            margin-bottom: 15px;
+        }
+
+        .course-card h3 {
+            color: #004aad;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .course-card p {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .course-card span {
+            display: inline-block;
+            background: #e3edff;
+            color: #004aad;
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            background: #004aad;
+            color: white;
+            text-decoration: none;
+            padding: 8px 18px;
+            border-radius: 8px;
+            display: inline-block;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #0063ff;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background: white;
+            color: #555;
+            font-size: 14px;
+            border-top: 1px solid #ddd;
+            margin-top: 50px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            .search-bar {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<header>
+    <h1>UDGEP | Skill-Based Education Hub</h1>
+    <nav>
+
+        <a href="msmemain.html">MSME</a>
+        <a href="schemes.html">Schemes</a>
+        <a href="forms.html">Forms</a>
+    </nav>
+</header>
+
+<div class="container">
+    <h2>Empowering Through Skills & Learning</h2>
+
+    <!-- Search & Filter -->
+    <div class="search-bar">
+        <input type="text" id="search" placeholder="Search for courses... (e.g. Web Development, AI)">
+        <select id="category">
+            <option value="">All Categories</option>
+            <option value="tech">Technology</option>
+            <option value="entrepreneurship">Entrepreneurship</option>
+            <option value="manufacturing">Manufacturing</option>
+            <option value="finance">Finance</option>
+            <option value="healthcare">Healthcare</option>
+        </select>
+        <button onclick="searchCourses()">Search</button>
+    </div>
+
+    <!-- Course Grid -->
+    <div class="course-grid" id="courseGrid">
+        <div class="course-card" data-category="tech">
+            <img src="https://cdn-icons-png.flaticon.com/512/1055/1055687.png" alt="Web Development">
+            <h3>Full Stack Web Development</h3>
+            <span>Technology</span>
+            <p>Learn HTML, CSS, JS, and backend integration with live projects.</p>
+            <a href="#" class="btn">Enroll Now</a>
+        </div>
+
+        <div class="course-card" data-category="entrepreneurship">
+            <img src="https://cdn-icons-png.flaticon.com/512/1087/1087927.png" alt="Startup Basics">
+            <h3>Startup & Entrepreneurship Basics</h3>
+            <span>Entrepreneurship</span>
+            <p>Understand business models, MSME registration, and funding opportunities.</p>
+            <a href="#" class="btn">Start Learning</a>
+        </div>
+
+        <div class="course-card" data-category="manufacturing">
+            <img src="https://cdn-icons-png.flaticon.com/512/1048/1048953.png" alt="3D Printing">
+            <h3>3D Printing & Smart Manufacturing</h3>
+            <span>Manufacturing</span>
+            <p>Gain hands-on knowledge of modern manufacturing technologies.</p>
+            <a href="#" class="btn">Join Course</a>
+        </div>
+
+        <div class="course-card" data-category="finance">
+            <img src="https://cdn-icons-png.flaticon.com/512/2331/2331970.png" alt="Finance">
+            <h3>Digital Finance & UPI Systems</h3>
+            <span>Finance</span>
+            <p>Learn about UPI integration, GST, and government digital payments.</p>
+            <a href="#" class="btn">Enroll Free</a>
+        </div>
+
+        <div class="course-card" data-category="healthcare">
+            <img src="https://cdn-icons-png.flaticon.com/512/2966/2966483.png" alt="Healthcare">
+            <h3>Healthcare Assistant Certification</h3>
+            <span>Healthcare</span>
+            <p>Train to become a government-recognized healthcare assistant.</p>
+            <a href="#" class="btn">Enroll Now</a>
+        </div>
+    </div>
+</div>
+
+<footer>
+    © 2025 UDGEP | Unified Digital Governance & Empowerment Portal
+</footer>
+
+<script>
+    function searchCourses() {
+        const query = document.getElementById("search").value.toLowerCase();
+        const category = document.getElementById("category").value;
+        const courses = document.querySelectorAll(".course-card");
+
+        courses.forEach(course => {
+            const title = course.querySelector("h3").textContent.toLowerCase();
+            const matchCategory = category === "" || course.dataset.category === category;
+            course.style.display = title.includes(query) && matchCategory ? "block" : "none";
+        });
+    }
+</script>
+</body>
+</html>
