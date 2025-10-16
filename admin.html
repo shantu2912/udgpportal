@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications & Admin Analytics | UDGEP</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background-color: #f4f6fa;
+            color: #333;
+        }
+
+        header {
+            background: #004aad;
+            color: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 22px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 15px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            padding: 40px 60px;
+        }
+
+        h2 {
+            color: #004aad;
+            font-size: 26px;
+            margin-bottom: 20px;
+        }
+
+        /* Dashboard Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 25px;
+            text-align: center;
+        }
+
+        .card h3 {
+            color: #004aad;
+            margin-bottom: 8px;
+        }
+
+        .card p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        /* Notifications Section */
+        .notifications {
+            margin-top: 40px;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            resize: vertical;
+            font-size: 15px;
+            margin-top: 10px;
+        }
+
+        button {
+            background: #004aad;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 8px;
+            margin-top: 15px;
+            cursor: pointer;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #0063ff;
+        }
+
+        /* Chart Section */
+        .chart {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        canvas {
+            margin-top: 20px;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background: white;
+            color: #555;
+            font-size: 14px;
+            border-top: 1px solid #ddd;
+            margin-top: 50px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>UDGEP | Admin Analytics & Notifications</h1>
+    <nav>
+        <a href="index.html">🏠 Dashboard</a>
+        <a href="msmemain.html">MSME</a>
+        <a href="schemes.html">Schemes</a>
+        <a href="ai.html">AI Checker</a>
+    </nav>
+</header>
+
+<div class="container">
+    <h2>📊 Analytics Overview</h2>
+
+    <div class="grid">
+        <div class="card">
+            <h3>Total Registered Users</h3>
+            <p id="usersCount">25,480</p>
+        </div>
+        <div class="card">
+            <h3>Active MSME Registrations</h3>
+            <p id="msmeCount">8,214</p>
+        </div>
+        <div class="card">
+            <h3>Ongoing Scheme Applications</h3>
+            <p id="schemeCount">5,932</p>
+        </div>
+        <div class="card">
+            <h3>Courses Enrolled</h3>
+            <p id="courseCount">12,760</p>
+        </div>
+    </div>
+
+    <div class="chart">
+        <h2>📈 Monthly Growth Statistics</h2>
+        <canvas id="growthChart"></canvas>
+    </div>
+
+    <div class="notifications">
+        <h2>📢 Send Notification / Update</h2>
+        <label>Message Content</label>
+        <textarea id="notificationMsg" rows="4" placeholder="Enter message to be sent to users"></textarea>
+        <button onclick="sendNotification()">Send Notification</button>
+        <p id="notifResult" style="margin-top:15px; font-weight:600;"></p>
+    </div>
+</div>
+
+<footer>
+    © 2025 UDGEP | Unified Digital Governance & Empowerment Portal
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Chart.js Data
+    const ctx = document.getElementById('growthChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+            datasets: [{
+                label: 'New Users',
+                data: [2000, 3000, 4200, 4800, 5600, 6400, 7500],
+                borderColor: '#004aad',
+                fill: false,
+                tension: 0.3
+            }, {
+                label: 'New MSMEs',
+                data: [500, 800, 1200, 1500, 1800, 2200, 2500],
+                borderColor: '#00b894',
+                fill: false,
+                tension: 0.3
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+
+    // Notification function
+    function sendNotification() {
+        const msg = document.getElementById('notificationMsg').value.trim();
+        const result = document.getElementById('notifResult');
+        if (msg) {
+            result.textContent = "✅ Notification sent successfully to all registered users!";
+            result.style.color = "green";
+            document.getElementById('notificationMsg').value = '';
+        } else {
+            result.textContent = "❌ Please enter a message before sending.";
+            result.style.color = "red";
+        }
+    }
+</script>
+</body>
+</html>
